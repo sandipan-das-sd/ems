@@ -17,6 +17,10 @@ export default function Signup() {
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
+//------------------Sign  up error message handling----------------------
+
+
+//---------------Handel Submission Function------------------------------
   const handleSubmission = async () => {
     if (!values.name || !values.email || !values.pass) {
       setErrorMsg("Fill all fields");
@@ -44,10 +48,13 @@ export default function Signup() {
       console.error("Error-", err.message);
     }
   };
+//-----------------All Functions Ends Here----------------------------------
 
+//-----------------React JSX HTML Start--------------------------------------------
   return (
     <div className={styles.container}>
       <div className={styles.innerBox}>
+      {/* -------------------Signup Heading------------------------ */}
         <h1 className={styles.heading}>Signup</h1>
         <InputControl
           label="Name"
@@ -56,7 +63,7 @@ export default function Signup() {
             setValues((prev) => ({ ...prev, name: event.target.value }))
           }
         />
-
+{/* ---------------------Passing the data to inputControl using props-----------------------------------  */}
         <InputControl
           label="Email"
           placeholder="Enter Your Email Address"
@@ -72,7 +79,7 @@ export default function Signup() {
             setValues((prev) => ({ ...prev, pass: event.target.value }))
           }
         />
-
+{/* --------------Signup Button Handeling------------------------- */}
         <div className={styles.footer}>
           <b className={styles.error}>{errorMsg}</b>
           <button onClick={handleSubmission} disabled={submitButtonDisabled}>

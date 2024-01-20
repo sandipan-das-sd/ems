@@ -4,13 +4,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Home from './components/Home/Home';
 import Signup from './components/Signup/Signup';
 import Login from '../src/components/Login/Login';
-import OTPVerificationForm  from './components/Login/OTPVerificationForm';
+import OTPVerificationForm from './components/Login/OTPVerificationForm';
 import Error from './components/Login/Error';
 import { auth } from './firebase';
 
 function App() {
   const [userName, setUserName] = useState("");
-
+  //--------------------Auth Handeling-----------------------
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -27,8 +27,20 @@ function App() {
 
   const isAuthenticated = userName !== "";
 
+
+  //------Authentication Complete -------------------------------------------
+
+
+
   return (
     <div className="App">
+
+
+
+      {/* ----------------------Routes Selting----------------------- */}
+
+
+
       <Router>
         <Routes>
           <Route
@@ -37,10 +49,13 @@ function App() {
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/error" element={<Error/>}/>
-          <Route path="/otp_verify" element={<OTPVerificationForm/>}/>
+          <Route path="/error" element={<Error />} />
+          <Route path="/otp_verify" element={<OTPVerificationForm />} />
         </Routes>
       </Router>
+      {/*---------------- If any routes Remaing Dont paste below this line *--------------------/}
+
+{/*-------- -----------Ends of Routes ---------------------------------- */}
     </div>
   );
 }
