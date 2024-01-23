@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route,  Navigate, } from 'react-router-dom';
 import Home from './components/Home/Home';
 import Signup from './components/Signup/Signup';
 import Login from '../src/components/Login/Login';
 import OTPVerificationForm from './components/Login/OTPVerificationForm';
 import Error from './components/Login/Error';
+import StaffAddForm from './components/Home/StaffAddForm';
 import { auth } from './firebase';
+
+
 
 function App() {
   const [userName, setUserName] = useState("");
+
+
   //--------------------Auth Handeling-----------------------
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -51,6 +56,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/error" element={<Error />} />
           <Route path="/otp_verify" element={<OTPVerificationForm />} />
+         <Route path="/staffAddForm" element={<StaffAddForm />} />
+         
         </Routes>
       </Router>
       {/*---------------- If any routes Remaing Dont paste below this line *--------------------/}

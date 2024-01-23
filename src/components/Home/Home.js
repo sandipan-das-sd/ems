@@ -1,5 +1,7 @@
 import React from 'react'
+import {NavLink} from "react-router-dom"
 import "./Home.css";
+
 export default function Home() {
   return (
     <div>
@@ -8,6 +10,10 @@ export default function Home() {
           <a className="navbar-brand align-items-center" href="/">
             <span style={{ color: "brown" }}>
 
+{/* ------------------Function to Add new STAFFS addStaff----------------- */}
+{/* const addStaff =()=>{
+
+} */}
 
               {/*-------------Employee Manegment Logo/Heading--------- */}
 
@@ -212,10 +218,11 @@ export default function Home() {
 
                   <ul className="dropdown-menu dropdown-menu-dark">
                     <li>
-                      <a className="dropdown-item" href="/">
-                        Add Staff
-                      </a>
+                    <NavLink className="dropdown-item" to="/staffAddForm">
+                    Add Staff
+                     </NavLink>
                     </li>
+                     
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
@@ -322,6 +329,9 @@ export default function Home() {
           </div>
         </div>
       </nav>
+      
     </div>
+   
   )
 }
+   
