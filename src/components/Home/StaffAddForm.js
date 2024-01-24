@@ -1,399 +1,353 @@
-import React, { useRef, useState } from 'react';
-import { useToast, ChakraProvider } from '@chakra-ui/react';
-import { addUser } from '../../service/api';
+import React, { useState } from "react";
+import logo from "../images/ems logo.png"
+import { NavLink } from "react-router-dom";
+import { addUser } from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
-export default function StaffAddForm() {
-  const toast = useToast();
+const StaffAddForm = () => {
 
-  // Initial state for form data
-  const [staff, setStaff] = useState({
-    name: '',
-    fname: '',
+  const defaultValue = {
+    cname: '',
     mobile: '',
     mail: '',
-    adhar: '',
     dob: '',
     doj: '',
     gender: '',
     rel: '',
+    address: '',
+    adate: '',
+    dept: '',
+    empid: '',
     image: '',
-  });
+  }
 
-  // Additional state for number and file input
-  const [number, setNumber] = useState('');
+  const [user, setUser] = useState(defaultValue);
 
-  const [file, setFile] = useState(null);
 
-  // Handler for text input changes
+  const fileData = (e) => {
+    // console.log(e.target.files[0])
+    setUser({ ...user, image: e.target.files[0] });
+  }
+
+  const navigate = useNavigate();
+
   const onValueChange = (e) => {
-    setStaff({ ...staff, [e.target.name]: e.target.value });
-  };
+    const name = e.target.name; // Use the name attribute of the input field
+    const value = e.target.value;
+    setUser({ ...user, [name]: value });
+    console.log(user);
+  }
 
-  // Handler for number input changes
-  const onValueChangeNew = (e) => {
-    // Get the input value from the event
-    let inputValue = e.target.value;
 
-    // Remove whitespaces from the input value
-    inputValue = inputValue.replace(/\s/g, '');
+  //Form Data storing to API
 
-    // Limit the input value to a maximum length of 12 characters
-    inputValue = inputValue.slice(0, 12);
-
-    // Insert a space after every 4 digits for better readability
-    inputValue = inputValue.replace(/(\d{4})/g, '$1 ');
-
-    // Update the state with the formatted input value
-    setNumber(inputValue);
-  };
-
-   // Handler for file input changes
-   const fileData = (e) => {
-    // Spread the existing staff object and update the image property
-    setStaff({ ...staff, image: e.target.files[0] });
-
-    // Get the selected file from the input
-    const selectedFile = e.target.files[0];
-
-    // Check if the file size is less than or equal to 150 KB
-    if (selectedFile.size <= 150 * 1024) {
-      // Update the state with the selected file
-      setFile(selectedFile);
-    } else {
-      // Display an alert and reset the input field
-      alert('File size must be less than 150KB.');
-      e.target.value = null; // Reset the input field
-      setFile(null);
-    }
-  };
-  const nameRef = useRef(null);
-  const refFather = useRef(null);
-
-  const submitData = async (e) => {
+  const addUserDetails = async (e) => {
     e.preventDefault();
-    const {
-      name,
-      fname,
-      mobile,
-      mail,
-      adhar,
-      dob,
-      doj,
-      gender,
-      rel,
-      image,
-    } = staff;
+    const formData = new FormData();
+    formData.append('image', user.image, user.image.name);
+    formData.append('cname', user.cname);
+    formData.append('mobile', user.mobile);
+    formData.append('mail', user.mail);
+    formData.append('dob', user.dob);
+    formData.append('gender', user.gender);
+    formData.append('rel', user.rel);
+    formData.append('address', user.address);
+    formData.append('adate', user.adate);
+    formData.append('dept', user.dept);
+    formData.append('empid', user.empid);
+    formData.append('doj', user.doj);
 
-    if (!name) {
-      document.getElementById('nameValid').innerText =
-        'Please Enter Your Name *';
-      nameRef.current.focus();
-    } else if (!fname) {
-      alert("Enter Your Father's Name");
-      refFather.current.focus();
-    } else if (!mobile) {
-      alert('Enter Your Mobile');
-    } else if (mobile.length !== 10) {
-      alert('Enter Your 10 Digit Mobile Number');
-    } else if (!mail) {
-      alert('Enter Your Email Id');
-    } else if (!adhar) {
-      alert('Enter Your Aadhar Number');
-    } else if (adhar.length !== 14) {
-      alert('Enter 12 Digit Aadhar Number');
-    } else if (!dob) {
-      alert('Enter Date Of Birth');
-    } else if (!gender) {
-      alert('Select Your Gender');
-    } else if (!rel) {
-      alert('Select Your Religion');
-    } else if (!image) {
-      alert('Upload Your Image');
-    } else if (!doj) {
-      alert('Enter your Date Of Joining');
-    } else {
-      const formData = new FormData();
-      formData.append('image', staff.image);
-      formData.append('name', staff.name);
-      formData.append('fname', staff.fname);
-      formData.append('mobile', staff.mobile);
-      formData.append('mail', staff.mail);
-      formData.append('adhar', staff.adhar);
-      formData.append('dob', staff.dob);
-      formData.append('doj', staff.doj);
-      formData.append('gender', staff.gender);
-      formData.append('rel', staff.rel);
-
-      // addUser to API Application
+    try {
       const res = await addUser(formData);
 
-      if (res.status === 201) {
-        toast({
-          title: res.data,
-          description: 'Data Successfully Added',
-          status: 'success',
-          duration: 9000,
-          position: 'top',
-          isClosable: true,
-        });
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+      if (res && res.status === 201) {
+        alert('Staff Successfully Added');
+        navigate('/pages/ViewStaff');
       } else {
-        toast({
-          title: res.data,
-          description: 'Something Went Wrong',
-          status: 'danger',
-          duration: 9000,
-          position: 'top',
-          isClosable: true,
-        });
+        alert('Error');
       }
+    } catch (error) {
+      console.error('Error adding user:', error);
+      alert('Error');
     }
+    const logoPath = '../images/ems logo.png';
   };
-
-
-
-
-return (
+  return (
     <div>
-      {/* ---------------------- Staff Add Form--------------------- */}
-      <ChakraProvider>
-        <form>
-          {/* -------------------Dashboard--------------------------- */}
-          <div className="container-fluid mt-4">
+      <div className="container-fluid">
+        <div className="row">
+          {/*Body Area start here*/}
+          <div className="container-fluid whole
+            "style={{
+              backgroundColor: '#EAD196'
+            }}>
             <div className="row">
               <div className="col-12">
                 <div className="body-title">
-                  {/* -----------Heading------------- */}
-                  <span className="pl-1">Add Staff</span>
+                  <h1>
+                    Welcome To Employee Management System
+                    <img src="{logoPath}" alt="logo"
+                      style={{ height: '50px', width: '50px' }}
+                    />
+                  </h1>
+                  <div className="service-heading">
+                    <NavLink to="/" className="servicenav" style={{
+                      textDecoration: 'none',
+                      fontSize: '20px'
+                    }}
+                    >Home /</NavLink>
+                    <span><NavLink to="/staffAddForm"
+                      style={{
+                        textDecoration: 'none',
+                        fontSize: '20px'
+                      }}>Add Staff</NavLink></span>
+                  </div>
                   <hr></hr>
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-12">
-                <div className="student-form pl-4 pr-4">
-                  <div className="student-form-top">
-                    <h5>Staff Registration Form</h5>
+            <form method="post" onSubmit={addUserDetails}>
+              <div className="row">
+                <div className="col-12"
+                  style={{
+                    backgroundColor: '#FDE767'
+                  }}>
+                  <div className="serviceassign-form"
+                  >
+                    <h5 >Add Staff Details</h5><hr></hr>
+                    <div className="row">
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Staff Name</td>
+                          </tr>
+                          <tr>
+                            <td><input type="text"
+                              name="cname"
+                              className="form-control"
+                              placeholder="Enter Staff's Name"
+                              value={user.cname} onChange={(e) => onValueChange(e)}>
+                            </input></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Mobile Number</td>
+                          </tr>
+                          <tr>
+                            <td><input type="text"
+                              name="mobile"
+                              className="form-control"
+                              placeholder="Enter Mobile Number"
+                              value={user.mobile}
+                              onChange={(e) => onValueChange(e)}>
+                            </input>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Email Id</td>
+                          </tr>
+                          <tr>
+                            <td><input type="email"
+                              name="mail"
+                              className="form-control"
+                              placeholder="Enter Email Id"
+                              value={user.mail}
+                              onChange={(e) => onValueChange(e)}></input></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Date Of Birth</td>
+                          </tr>
+                          <tr>
+                            <td><input type="date"
+                              name="dob"
+                              value={user.dob}
+                              className="form-control"
+                              onChange={(e) => onValueChange(e)}>
+
+                            </input></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Date Of Joining</td>
+                          </tr>
+                          <tr>
+                            <td><input type="date" name="doj"
+                              className="form-control"
+                              value={user.doj}
+                              onChange={(e) => onValueChange(e)}></input></td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Gender</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <select name="gender" className="form-control"
+                                onChange={(e) => onValueChange(e)}
+                                value={user.gender}>
+                                <option disabled selected value>--Select Gender--</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                              </select>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Religion</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <select name="rel"
+                                className="form-control"
+                                onChange={(e) => onValueChange(e)}
+                                value={user.rel}>
+                                <option disabled selected value>
+                                  --Select Religion--</option>
+                                <option value="hindu">Hindu</option>
+                                <option value="islam">Islam</option>
+                                <option value="sikh">Sikh</option>
+                                <option value="other">Other</option>
+                              </select>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-12">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Address</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <textarea name="address"
+                                className="form-control" placeholder="Enter Full Address..."
+                                onChange={(e) => onValueChange(e)}
+                                value={user.address}
+                              ></textarea>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Letter of Joining Date</td>
+                          </tr>
+                          <tr>
+                            <td><input type="date"
+                              name="adate"
+                              className="form-control"
+                              value={user.adate}
+                              onChange={(e) => onValueChange(e)}>
+
+                            </input>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Department</td>
+                          </tr>
+                          <tr>
+                            <td><input type="text"
+                              name="dept" className="form-control"
+                              value={user.dept}
+                              placeholder="Enter Department
+  " onChange={(e) => onValueChange(e)}>
+
+                            </input>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Employee ID </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="text"
+                                name="empid" className="form-control"
+                                value={user.empid}
+                                placeholder="Enter Employee ID "
+                                onChange={(e) => onValueChange(e)}></input>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12 col-md-4">
+                        <table className="table table-responsive">
+                          <tr>
+                            <td>Photo</td>
+                          </tr>
+                          <tr>
+                            <td><input type="file"
+                              name="image"
+                              className="form-control"
+                             
+                              onChange={fileData}></input></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="btn">
+                          <NavLink to=""
+                            onClick={addUserDetails}
+                            className="btn btn-primary mr-2"
+                            style={{ fontFamily: 'redo' }}>Submit Form</NavLink>
+                          <button type="reset"
+                            className="btn btn-danger mr-2">
+                            Reset Details</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  {/* -------Form Starts------- */}
-                  <div className="row mt-3">
-                    <div className="col-12 col-md-4">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">
-                            Name <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="name"
-                            ref={nameRef}
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            onChange={(e) => onValueChange(e)}
-                            aria-describedby="emailHelp"
-                            placeholder="Enter Your Name"
-                          />
-                          <p id="nameValid">
-                            <i>Please Enter Your Name *</i>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-4">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">
-                            Father's/Guardian's Name{' '}
-                            <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="fname"
-                            ref={refFather}
-                            onChange={(e) => onValueChange(e)}
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter Your Father's Name"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-4">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">
-                            Mobile Number{' '}
-                            <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="mobile"
-                            onChange={(e) => onValueChange(e)}
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter Your Mobile Number"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-12 col-md-3">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email Id</label>
-                          <input
-                            type="email"
-                            name="mail"
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            onChange={(e) => onValueChange(e)}
-                            placeholder="Enter Your Email Id"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-3">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">
-                            Aadhar Number{' '}
-                            <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <input
-                            type="text"
-                            name="adhar"
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            value={number}
-                            aria-describedby="emailHelp"
-                            placeholder="Enter Your Aadhar Number"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-3">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">
-                            Date Of Birth{' '}
-                            <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <input
-                            type="date"
-                            name="dob"
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            onChange={(e) => onValueChange(e)}
-                            placeholder="Enter Your Date Of Birth"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-3">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">
-                            Date Of Joining{' '}
-                            <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <input
-                            type="date"
-                            name="doj"
-                            class="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            onChange={(e) => onValueChange(e)}
-                            placeholder="Enter Your Date Of Joining"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row mt-2">
-                    <div className="col-12 col-md-4">
-                      <div className="name">
-                        <div class="form-group">
-                          <label for="exampleFormControlSelect1">
-                            Gender <span style={{ color: 'red' }}>*</span>
-                          </label>
-                          <select
-                            name="gender"
-                            class="form-control"
-                            id="exampleFormControlSelect1"
-                            onChange={(e) => onValueChange(e)}
-                          >
-                            <option disabled selected value={''}>
-                              --Select Gender--
-                            </option>
-                            <option value={'male'}>Male</option>
-                            <option value={'female'}>Female</option>
-                            <option value={'other'}>Other</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-4">
-                      <div className="name">
-                        <div className="form-group">
-                          <label htmlFor="exampleFormControlSelect1">
-                            Religion <span style={{ color: 'red' }}>
-                              <small>*</small>
-                            </span>
-                          </label>
-                          <select
-                            name="rel"
-                            className="form-control"
-                            id="exampleFormControlSelect1"
-                            onChange={(e) => onValueChange(e)}
-                          >
-                            <option disabled selected value={''}>
-                              --Select Religion--
-                            </option>
-                            <option value={'hindu'}>Hindu</option>
-                            <option value={'islam'}>Islam</option>
-                            <option value={'sikh'}>Sikh</option>
-                            <option value={'other'}>Other</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-4">
-                      <div className="name">
-                        <div className="form-group">
-                          <label htmlFor="exampleInputEmail1">
-                            Image{' '}
-                            <span style={{ color: 'red' }}>
-                              <small>*</small>
-                            </span>
-                          </label>
-                          <input
-                            type="file"
-                            name="image"
-                            className="form-control"
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter Your Mobile Number"
-                            onChange={fileData}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* -------Form Ends------- */}
                 </div>
               </div>
-            </div>
+            </form>
           </div>
-        </form>
-      </ChakraProvider>
+          {/*Body area end here*/}
+        </div>
+      </div>
     </div>
-  );
+
+  )
 }
+
+export default StaffAddForm
