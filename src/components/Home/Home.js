@@ -227,9 +227,9 @@ export default function Home() {
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/">
-                        Manage Staff
-                      </a>
+                    <NavLink className="dropdown-item" to="/Viewstaff">
+                    Manage Staff
+                     </NavLink>
                     </li>
                   </ul>
                 </li>

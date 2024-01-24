@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../images/ems logo.png"
+
 import { NavLink } from "react-router-dom";
 import { addUser } from "../../service/api";
 import { useNavigate } from "react-router-dom";
@@ -68,7 +68,7 @@ const StaffAddForm = () => {
       }
     } catch (error) {
       console.error('Error adding user:', error);
-      alert('Error');
+      alert('Error',error.message);
     }
     const logoPath = '../images/ems logo.png';
   };
