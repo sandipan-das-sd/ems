@@ -33,7 +33,7 @@ app.use(cors());
 app.use('/', Routes);
 
 // Serve static files (e.g., uploaded images) from the 'uploads' directory
-app.use('/uploads', express.static('uploads'));
+app.use('/staffdetails uploads', express.static('staffdetails uploads'));
 
 // Set the port number for the server to listen on
 const PORT = 5000;
