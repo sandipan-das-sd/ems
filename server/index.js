@@ -33,10 +33,10 @@ app.use(cors());
 app.use('/', Routes);
 
 // Serve static files (e.g., uploaded images) from the 'uploads' directory
-app.use('/staffdetails uploads', express.static('staffdetails uploads'));
+app.use('/uploads', express.static('uploads'));
 
 // Set the port number for the server to listen on
-const PORT = 5000;
+const PORT = 5001;
 
 // Get database credentials from environment variables
 const username = process.env.DB_USERNAME;

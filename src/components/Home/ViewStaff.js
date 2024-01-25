@@ -198,7 +198,7 @@ const ViewStaff = () => {
                           <td>
                             {user.image ? (
                               <img
-                                src={`http://localhost:5000/uploads/${user.image}`}
+                                src={`http://localhost:5001/uploads/${user.image}`}
                                 alt={`Image of ${user.cname}`}
                                 width="30px"
                                 height="30px"
