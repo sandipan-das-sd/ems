@@ -60,18 +60,22 @@ const StaffAddForm = () => {
     try {
       const res = await addUser(formData);
 
-      if (res && res.status === 201) {
+      if (res.status === 201) {
         alert('Staff Successfully Added');
         navigate('/pages/ViewStaff');
       } else {
-        alert('Error');
+        console.error('Error adding user:', res.statusText);
+        alert('Error: ' + res.statusText);
       }
     } catch (error) {
       console.error('Error adding user:', error);
-      alert('Error',error.message);
+      alert('Error: ' + error.message);
     }
+
     const logoPath = '../images/ems logo.png';
   };
+
+
   return (
     <div>
       <div className="container-fluid">
@@ -106,7 +110,7 @@ const StaffAddForm = () => {
                 </div>
               </div>
             </div>
-            <form method="post" onSubmit={addUserDetails}>
+            <form>
               <div className="row">
                 <div className="col-12"
                   style={{
@@ -126,7 +130,7 @@ const StaffAddForm = () => {
                               name="cname"
                               className="form-control"
                               placeholder="Enter Staff's Name"
-                              value={user.cname} onChange={(e) => onValueChange(e)}>
+                              onChange={(e) => onValueChange(e)}>
                             </input></td>
                           </tr>
                         </table>
@@ -141,7 +145,7 @@ const StaffAddForm = () => {
                               name="mobile"
                               className="form-control"
                               placeholder="Enter Mobile Number"
-                              value={user.mobile}
+
                               onChange={(e) => onValueChange(e)}>
                             </input>
                             </td>
@@ -158,7 +162,7 @@ const StaffAddForm = () => {
                               name="mail"
                               className="form-control"
                               placeholder="Enter Email Id"
-                              value={user.mail}
+
                               onChange={(e) => onValueChange(e)}></input></td>
                           </tr>
                         </table>
@@ -173,7 +177,7 @@ const StaffAddForm = () => {
                           <tr>
                             <td><input type="date"
                               name="dob"
-                              value={user.dob}
+
                               className="form-control"
                               onChange={(e) => onValueChange(e)}>
 
@@ -189,7 +193,7 @@ const StaffAddForm = () => {
                           <tr>
                             <td><input type="date" name="doj"
                               className="form-control"
-                              value={user.doj}
+
                               onChange={(e) => onValueChange(e)}></input></td>
                           </tr>
                         </table>
@@ -203,7 +207,7 @@ const StaffAddForm = () => {
                             <td>
                               <select name="gender" className="form-control"
                                 onChange={(e) => onValueChange(e)}
-                                value={user.gender}>
+                              >
                                 <option disabled selected value>--Select Gender--</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -223,7 +227,7 @@ const StaffAddForm = () => {
                               <select name="rel"
                                 className="form-control"
                                 onChange={(e) => onValueChange(e)}
-                                value={user.rel}>
+                              >
                                 <option disabled selected value>
                                   --Select Religion--</option>
                                 <option value="hindu">Hindu</option>
@@ -248,7 +252,7 @@ const StaffAddForm = () => {
                               <textarea name="address"
                                 className="form-control" placeholder="Enter Full Address..."
                                 onChange={(e) => onValueChange(e)}
-                                value={user.address}
+
                               ></textarea>
                             </td>
                           </tr>
@@ -266,7 +270,7 @@ const StaffAddForm = () => {
                             <td><input type="date"
                               name="adate"
                               className="form-control"
-                              value={user.adate}
+
                               onChange={(e) => onValueChange(e)}>
 
                             </input>
@@ -282,7 +286,7 @@ const StaffAddForm = () => {
                           <tr>
                             <td><input type="text"
                               name="dept" className="form-control"
-                              value={user.dept}
+
                               placeholder="Enter Department
   " onChange={(e) => onValueChange(e)}>
 
@@ -300,7 +304,7 @@ const StaffAddForm = () => {
                             <td>
                               <input type="text"
                                 name="empid" className="form-control"
-                                value={user.empid}
+
                                 placeholder="Enter Employee ID "
                                 onChange={(e) => onValueChange(e)}></input>
                             </td>
@@ -318,7 +322,7 @@ const StaffAddForm = () => {
                             <td><input type="file"
                               name="image"
                               className="form-control"
-                             
+
                               onChange={fileData}></input></td>
                           </tr>
                         </table>

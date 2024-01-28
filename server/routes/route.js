@@ -59,7 +59,7 @@ router.post('/getUser', getUsersData);
 router.post('/updateUser', updateUsers);
 
 // Delete user - HTTP POST request
-router.post('/deleteUser', deleteUser);
+router.put('/deleteUser', deleteUser);
 
 // Export the router for use in other parts of the application
 export default router;

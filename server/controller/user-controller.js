@@ -1,4 +1,4 @@
-//Api to data base conncetiones
+//Api to data base conncetiones ad update delete get user in data base to api
 import User from "../schema//user-schema.js";
 export const getUsers=async (request,response)=>{
     try {

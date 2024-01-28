@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import { NavLink, useParams } from "react-router-dom";
 import { getUsersdata, updateUsers } from "../../service/api";
 import { useNavigate } from "react-router-dom";
 
 export default function EditStudent() {
   const navigate = useNavigate();
-  const id = useParams();
+  const { id }= useParams();
 
   const getData = async () => {
     const res = await getUsersdata(id);
@@ -16,8 +15,8 @@ export default function EditStudent() {
 
   useEffect(() => {
     getData();
-  }, []);
-
+  }, [id]);
+  
   const [user, setUser] = useState({
     _id: "",
     cname: "",
@@ -36,7 +35,8 @@ export default function EditStudent() {
   const onValueChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     console.log(user);
-  };
+}
+  
 
   const addUserDetails = async (e) => {
     e.preventDefault();
@@ -158,6 +158,7 @@ export default function EditStudent() {
                             <tr>
                               <td>Staff Name</td>
                             </tr>
+                            
                             <tr>
                               <td>
                                 <input
