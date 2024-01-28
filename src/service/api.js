@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://localhost:5000";
+const URL = "http://localhost:8000";
 //addUser is a function name
 export const addUser = async (data) => {
   try {
@@ -34,7 +34,7 @@ export const getUsersData = async (data) => {
 
 export const updateUser = async (data) => {
   try {
-    const response = await axios.put(`${URL}/updateUser`, data);
+    const response = await axios.post(`${URL}/updateUser`, data);
     return response.data;
   } catch (error) {
     console.error("Error while updating data", error.message);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
-import { getUsersdata, updateUsers } from "../../service/api";
+import { getUsersData, updateUser } from "../../service/api";
 import { useNavigate } from "react-router-dom";
 
 export default function EditStudent() {
@@ -8,7 +8,7 @@ export default function EditStudent() {
   const { id }= useParams();
 
   const getData = async () => {
-    const res = await getUsersdata(id);
+    const res = await getUsersData(id);
     console.log(res.data);
     setUser(res.data);
   };
@@ -40,7 +40,7 @@ export default function EditStudent() {
 
   const addUserDetails = async (e) => {
     e.preventDefault();
-    const res = await updateUsers(user);
+    const res = await updateUser(user);
     if (res.status === 201) {
       alert("Staff Successfully Updated");
       navigate("/pages/Viewstaff");

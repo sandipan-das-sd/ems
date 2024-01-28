@@ -56,10 +56,10 @@ const StaffAddForm = () => {
     formData.append('dept', user.dept);
     formData.append('empid', user.empid);
     formData.append('doj', user.doj);
-
+  
     try {
       const res = await addUser(formData);
-
+  
       if (res.status === 201) {
         alert('Staff Successfully Added');
         navigate('/pages/ViewStaff');
@@ -130,7 +130,7 @@ const StaffAddForm = () => {
                               name="cname"
                               className="form-control"
                               placeholder="Enter Staff's Name"
-                              onChange={(e) => onValueChange(e)}>
+                               onChange={(e) => onValueChange(e)}>
                             </input></td>
                           </tr>
                         </table>
@@ -145,7 +145,7 @@ const StaffAddForm = () => {
                               name="mobile"
                               className="form-control"
                               placeholder="Enter Mobile Number"
-
+                              
                               onChange={(e) => onValueChange(e)}>
                             </input>
                             </td>
@@ -162,7 +162,7 @@ const StaffAddForm = () => {
                               name="mail"
                               className="form-control"
                               placeholder="Enter Email Id"
-
+                             
                               onChange={(e) => onValueChange(e)}></input></td>
                           </tr>
                         </table>
@@ -177,7 +177,7 @@ const StaffAddForm = () => {
                           <tr>
                             <td><input type="date"
                               name="dob"
-
+                              
                               className="form-control"
                               onChange={(e) => onValueChange(e)}>
 
@@ -193,7 +193,7 @@ const StaffAddForm = () => {
                           <tr>
                             <td><input type="date" name="doj"
                               className="form-control"
-
+                              
                               onChange={(e) => onValueChange(e)}></input></td>
                           </tr>
                         </table>
@@ -207,7 +207,7 @@ const StaffAddForm = () => {
                             <td>
                               <select name="gender" className="form-control"
                                 onChange={(e) => onValueChange(e)}
-                              >
+                               >
                                 <option disabled selected value>--Select Gender--</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -227,7 +227,7 @@ const StaffAddForm = () => {
                               <select name="rel"
                                 className="form-control"
                                 onChange={(e) => onValueChange(e)}
-                              >
+                                >
                                 <option disabled selected value>
                                   --Select Religion--</option>
                                 <option value="hindu">Hindu</option>
@@ -252,7 +252,7 @@ const StaffAddForm = () => {
                               <textarea name="address"
                                 className="form-control" placeholder="Enter Full Address..."
                                 onChange={(e) => onValueChange(e)}
-
+                               
                               ></textarea>
                             </td>
                           </tr>
@@ -270,7 +270,7 @@ const StaffAddForm = () => {
                             <td><input type="date"
                               name="adate"
                               className="form-control"
-
+                              
                               onChange={(e) => onValueChange(e)}>
 
                             </input>
@@ -286,7 +286,7 @@ const StaffAddForm = () => {
                           <tr>
                             <td><input type="text"
                               name="dept" className="form-control"
-
+                              
                               placeholder="Enter Department
   " onChange={(e) => onValueChange(e)}>
 
@@ -304,7 +304,7 @@ const StaffAddForm = () => {
                             <td>
                               <input type="text"
                                 name="empid" className="form-control"
-
+                               
                                 placeholder="Enter Employee ID "
                                 onChange={(e) => onValueChange(e)}></input>
                             </td>
@@ -322,7 +322,7 @@ const StaffAddForm = () => {
                             <td><input type="file"
                               name="image"
                               className="form-control"
-
+                             
                               onChange={fileData}></input></td>
                           </tr>
                         </table>
