@@ -6,9 +6,8 @@ import Signup from './components/Signup/Signup';
 import Login from '../src/components/Login/Login';
 import OTPVerificationForm from './components/Login/OTPVerificationForm';
 import Error from './components/Login/Error';
-import StaffAddForm from './components/Home/StaffAddForm';
-import ViewStaff from './components/Home/ViewStaff';
-import EditStudent from './components/Home/EditStaff';
+import AddStaff from './components/AddStaff';
+
 import { auth } from './firebase';
 
 
@@ -58,9 +57,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/error" element={<Error />} />
           <Route path="/otp_verify" element={<OTPVerificationForm />} />
-         <Route path="/staffAddForm" element={<StaffAddForm />} />
-         <Route path="/pages/Viewstaff" element={<ViewStaff />} />
-         <Route exact path='/pages/EditStudent/:id' element={<EditStudent />}></Route>
+          <Route path="/staffAddForm" element={<AddStaff />} />
         </Routes>
       </Router>
       {/*---------------- If any routes Remaing Dont paste below this line *--------------------/}

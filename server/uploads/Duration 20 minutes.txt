@@ -1,8 +1,0 @@
-Duration: 20 minutes
-Total Questions: 30
-Scoring: Each question carries 1 mark.
-NEGATIVE:- Each questions are carring -1 mark.
-Rules: No cheating or plagiarism allowed.
-Time Management: Manage your time wisely.
-Submission: Submit your answers within the given time frame.
-Good Luck: Best of luck!
