@@ -79,10 +79,10 @@ export default function EditStaff() {
       }));
     }
   };
-  
+  //update the staff forms
   const handleSubmit = async (e) => {
     e.preventDefault();
-     // API call to add staff member
+     // API call to update staff member
      await axios.put(`http://localhost:3001/updateStaffs/${id}`, formData)
      .then(res => {
          console.log(res);
