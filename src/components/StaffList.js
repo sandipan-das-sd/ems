@@ -41,6 +41,7 @@ export default function StaffList() {
                         <th>Working Type</th>
                         <th>Start Date</th>
                         <th>Emergency Contact</th>
+                        <th>Emergency Person</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -65,8 +66,9 @@ export default function StaffList() {
                             <td>{user.user_workingtype}</td>
                             <td>{user.user_doj}</td>
                             <td>{user.user_emergencyphneno}</td>
+                            <td>{user.user_emergency_contact_name}</td>
                             <td>
-                                <Button onClick={() => navigate(`/editStaff`)} variant='success'>Update</Button>
+                                <Button onClick={() => navigate(`/editStaff/${user._id}`)} variant='success'>Update</Button>
                                 <Link to={`/delete`}>
                                     <Button variant='primary'>Delete</Button>
                                 </Link>

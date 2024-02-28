@@ -19,6 +19,7 @@ export default function AddStaff() {
     user_workingtype:'',
     user_doj:'',
     user_emergencyphneno:'',
+    user_emergency_contact_name:'',
     index:'',
 });
   //handelChange is a function where user can type the value and we can get the value of all the input fields 

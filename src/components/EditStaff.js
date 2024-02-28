@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function EditStaff() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  // Define formData state
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
@@ -21,17 +27,95 @@ export default function EditStaff() {
     user_emergency_contact_name: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  // Define user state
+  const [user, setUser] = useState([]);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    axios.get(`http://localhost:3001/editStaff/${id}`)
+      .then(response => {
+        const userData = response.data;
+        console.log(userData)
+        // Format dates
+        const formattedBirthday = userData.user_birthday.split('T')[0];
+        const formattedDoj = userData.user_doj.split('T')[0];
+  
+        setFormData({
+          user_name: userData.user_name,
+          user_email: userData.user_email,
+          user_age: userData.user_age,
+          user_jobtitle: userData.user_jobtitle,
+          user_address: userData.user_address,
+          user_zip: userData.user_zip,
+          user_city: userData.user_city,
+          user_state: userData.user_state,
+          user_district: userData.user_district,
+          user_phone: userData.user_phone,
+          user_birthday: formattedBirthday,
+          user_docx: '', // Set to empty string for file input
+          user_department: userData.user_department,
+          user_workingtype: userData.user_workingtype,
+          user_doj: formattedDoj,
+          user_emergencyphneno: userData.user_emergencyphneno,
+          user_emergency_contact_name: userData.user_emergency_contact_name,
+        });
+      })
+      .catch(err => console.error(err));
+  }, [id]);
+  
+  const handleChange = (e) => {
+    const { name, value, type, files } = e.target;
+  
+    // For file inputs
+    if (type === 'file') {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: files[0], // Update formData with the selected file
+      }));
+    } else {
+      // For other input types
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your form submission logic here
+     // API call to add staff member
+     await axios.put(`http://localhost:3001/updateStaffs/${id}`, formData)
+     .then(res => {
+         console.log(res);
+         // Navigate to the staff list page after successful addition
+         alert("Data Successfully Updated")
+         navigate('/staffList');
+     })
+     .catch(err => console.log(err));
+
+    // Handle form submission
+    let currentUserFormData={
+        user_name: formData.user_name,
+        user_email: formData.user_email,
+        user_age: formData.user_age,
+        user_jobtitle: formData.user_jobtitle,
+        user_address:formData.user_address,
+        user_zip:formData.user_zip,
+        user_city:formData.user_city,
+        user_state:formData.user_state,
+        user_district:formData.user_district,
+        user_phone:formData.user_phone,
+        user_birthday:formData.user_birthday,
+        user_docx:formData.user_docx,
+        user_department:formData.user_department,
+        user_workingtype:formData.user_workingtype,
+        user_doj:formData.user_doj,
+        user_emergencyphneno:formData.user_emergencyphneno,
+        user_emergency_contact_name:formData.user_emergency_contact_name,
+        index:formData.index,
+    }
+    let oldUserdata=[...user,currentUserFormData]
+    setUser(oldUserdata)
+    console.log(formData);
   };
 
   return (
@@ -89,17 +173,18 @@ export default function EditStaff() {
             />
           </label>
           <label style={styles.label} htmlFor="name">
-           Upload Your Photo:
-            <input
-              type="file"
-              accept='image/png'
-              id="user_docx"
-              name="user_docx"
-              value={formData.user_docx}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
+  Upload Your Photo:
+</label>
+<input
+  type="file"
+  accept="image/png"
+  id="user_docx"
+  name="user_docx"
+  
+  onChange={handleChange}
+  style={styles.input}
+/>
+{formData.user_docx && <p>{formData.user_docx.name}</p>}
 
           <legend style={styles.legend}>
             <span style={styles.number}>2</span> Your Job Details

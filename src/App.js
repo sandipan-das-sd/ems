@@ -63,7 +63,7 @@ function App() {
           <Route path="/staffList" element={<StaffList />} />
           <Route path="/staffAddForm" element={<AddStaff />} />
           <Route path="/viewStaff/:id" element={<ViewStaff />} />
-          <Route path="/editStaff" element={<EditStaff />} />
+          <Route path="/editStaff/:id" element={<EditStaff />} />
 
         </Routes>
       </Router>
