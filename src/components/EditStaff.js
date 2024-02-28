@@ -1,210 +1,54 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate} from 'react-router-dom'
-export default function AddStaff() {
+
+export default function EditStaff() {
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
     user_age: '',
     user_jobtitle: '',
-    user_address:'',
-    user_zip:'',
-    user_city:'',
-    user_state:'',
-    user_district:'',
-    user_phone:'',
-    user_birthday:'',
-    user_docx:'',
-    user_department:'',
-    user_workingtype:'',
-    user_doj:'',
-    user_emergencyphneno:'',
-    index:'',
-});
-  //handelChange is a function where user can type the value and we can get the value of all the input fields 
- //on chnage and event are adding for this  here to type
- let [user,setUser]=useState(
-    [
+    user_address: '',
+    user_zip: '',
+    user_city: '',
+    user_state: '',
+    user_district: '',
+    user_phone: '',
+    user_birthday: '',
+    user_docx: '',
+    user_department: '',
+    user_workingtype: '',
+    user_doj: '',
+    user_emergencyphneno: '',
+    user_emergency_contact_name: '',
+  });
 
-    ]
-
- )
- 
-
-  const handleChange = (event) => {
-    let oldData={...formData}
-    let inputName=event.target.name
-    let inputValue=event.target.value
-    oldData[inputName]=inputValue
-    setFormData(oldData)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-  const navigate=useNavigate();
-  const handleSubmit =async  (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-     // API call to add staff member
-     await axios.post('http://localhost:3001/addStaff', formData)
-     .then(res => {
-         console.log(res);
-         // Navigate to the staff list page after successful addition
-         alert("Data Succesfully added")
-         navigate('/staffList');
-     })
-     .catch(err => console.log(err));
-
-    // Handle form submission
-    let currentUserFormData={
-        user_name: formData.user_name,
-        user_email: formData.user_email,
-    
-        user_age: formData.user_age,
-    
-        user_jobtitle: formData.user_jobtitle,
-    
-        user_address:formData.user_address,
-        user_zip:formData.user_zip,
-        user_city:formData.user_city,
-        user_state:formData.user_state,
-        user_district:formData.user_district,
-        user_phone:formData.user_phone,
-        user_birthday:formData.user_birthday,
-        user_docx:formData.user_docx,
-        user_department:formData.user_department,
-        user_workingtype:formData.user_workingtype,
-        user_doj:formData.user_doj,
-        user_emergencyphneno:formData.user_emergencyphneno,
-        index:formData.index,
-
-
-
-    }
-    let oldUserdata=[...user,currentUserFormData]
-    setUser(oldUserdata)
-    console.log(formData);
-    // if(setUser(oldUserdata)){
-
-    
-    // alert("Form Submitted ")
-    // }
-    // else
-    // {
-    //     alert("Please Fill the form before submitting")
-    // }
-    // To empty the input field after adding/getting the data
-    setFormData
-    (
-        {
-            user_name: '',
-            user_email: '',
-            
-            user_age: '',
-            
-            user_jobtitle: '',
-            
-            user_address:'',
-            user_zip:'',
-            user_city:'',
-            user_state:'',
-            user_district:'',
-            user_phone:'',
-            user_birthday:'',
-            user_docx:'',
-            user_department:'',
-            user_workingtype:'',
-            user_doj:'',
-            user_emergencyphneno:'',
-            index:'',
-        
-         
-        }
-    )
-  
+    // Add your form submission logic here
   };
 
   return (
-    <div style={{
-        backgroundColor:'green',
-    }}>
+    <div style={{ backgroundColor: 'green' }}>
       <form onSubmit={handleSubmit} style={styles.form}>
-        <h1 style={styles.heading}>Add New Employee</h1>
+        <h1 style={styles.heading}>Edit Employee</h1>
         <fieldset style={styles.fieldset}>
           <legend style={styles.legend}>
-            <span style={styles.number}>1</span> Your basic info
+            <span style={styles.number}>1</span> Employee Information
           </legend>
           <label style={styles.label} htmlFor="name">
-           Full Name:
+            Full Name:
             <input
               type="text"
               id="name"
               name="user_name"
               value={formData.user_name}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          <label style={styles.label} htmlFor="name">
-            Address:
-            <input
-              type="text"
-              id="address"
-              name="user_address"
-              value={formData.user_address}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          <label style={styles.label} htmlFor="name">
-           City:
-            <input
-              type="text"
-              id="city"
-              name="user_city"
-              value={formData.user_city}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          <label style={styles.label} htmlFor="name">
-           PinCode:
-            <input
-              type="text"
-              id="zip"
-              name="user_zip"
-              placeholder='Enter Number Only'
-              value={formData.user_zip}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          <label style={styles.label} htmlFor="name">
-           District:
-            <input
-              type="text"
-              id="district"
-              name="user_district"
-              value={formData.user_district}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-          <label style={styles.label} htmlFor="name">
-           State:
-            <input
-              type="text"
-              id="state"
-              name="user_state"
-              value={formData.user_state}
-              onChange={handleChange}
-              style={styles.input}
-            />
-          </label>
-
-          <label style={styles.label} htmlFor="name">
-            Phone Number:
-            <input
-              type="number"
-              id="phone"
-              name="user_phone"
-              value={formData.user_phone}
               onChange={handleChange}
               style={styles.input}
             />
@@ -220,7 +64,7 @@ export default function AddStaff() {
               style={styles.input}
             />
           </label>
-          <label style={styles.label} htmlFor="name">
+          <label style={styles.label} htmlFor="age">
             Age:
             <input
               type="number"
@@ -231,6 +75,8 @@ export default function AddStaff() {
               style={styles.input}
             />
           </label>
+          {/* Add other input fields similarly */}
+          {/* ... */}
           <label style={styles.label} htmlFor="name">
            Birthday:
             <input
@@ -335,17 +181,11 @@ export default function AddStaff() {
     style={styles.input}
   />
 </label>
-
-
-
-          </legend>
+</legend>
         </fieldset>
-        
-        <button 
-        type="submit" 
-        style={styles.button}
-        onClick={handleSubmit}
-        >Add Staff </button>
+        <button type="submit" style={styles.button}>
+          Update Employee
+        </button>
       </form>
     </div>
   );
@@ -355,7 +195,7 @@ const styles = {
   form: {
     maxWidth: '1000px',
     margin: '10px auto',
-    marginBottom:'10px',
+    marginBottom: '10px',
     padding: '10px 20px',
     background: '#f4f7f8',
     borderRadius: '8px',
@@ -415,6 +255,5 @@ const styles = {
     lineHeight: '30px',
     textAlign: 'center',
     textShadow: '0 1px 0 rgba(255,255,255,0.2)',
-    borderRadius: '100%',
   },
 };

@@ -7,8 +7,11 @@ import Login from '../src/components/Login/Login';
 import OTPVerificationForm from './components/Login/OTPVerificationForm';
 import Error from './components/Login/Error';
 import AddStaff from './components/AddStaff';
+import ViewStaff from './components/ViewStaff';
+import EditStaff from './components/EditStaff';
 
 import { auth } from './firebase';
+import StaffList from './components/StaffList';
 
 
 
@@ -57,7 +60,11 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/error" element={<Error />} />
           <Route path="/otp_verify" element={<OTPVerificationForm />} />
+          <Route path="/staffList" element={<StaffList />} />
           <Route path="/staffAddForm" element={<AddStaff />} />
+          <Route path="/viewStaff/:id" element={<ViewStaff />} />
+          <Route path="/editStaff" element={<EditStaff />} />
+
         </Routes>
       </Router>
       {/*---------------- If any routes Remaing Dont paste below this line *--------------------/}
