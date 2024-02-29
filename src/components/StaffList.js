@@ -48,6 +48,7 @@ const formatDate = (isoDate) => {
     // }
 
     return (
+        <div className='container-fluid'>
         <Container className='mt-5'>
             <div className='text-end'>
                 <Link to="/staffAddForm" className='btn btn-success'>Add Staff</Link>
@@ -65,6 +66,7 @@ const formatDate = (isoDate) => {
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Age</th>
+                        <th>Sex</th>
                         <th>Job Title</th>
                         <th>Address</th>
                         <th>Zip</th>
@@ -89,6 +91,7 @@ const formatDate = (isoDate) => {
                             <td>{user.user_name}</td>
                             <td>{user.user_email}</td>
                             <td>{user.user_age}</td>
+                            <td>{user.user_sex}</td>
                             <td>{user.user_jobtitle}</td>
                             <td>{user.user_address}</td>
                             <td>{user.user_zip}</td>
@@ -119,5 +122,7 @@ const formatDate = (isoDate) => {
             </Table>
             )}
         </Container>
+        </div>
     );
    }
+  

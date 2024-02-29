@@ -10,6 +10,7 @@ export default function EditStaff() {
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
+    user_sex:'',
     user_age: '',
     user_jobtitle: '',
     user_address: '',
@@ -43,6 +44,7 @@ export default function EditStaff() {
           user_name: userData.user_name,
           user_email: userData.user_email,
           user_age: userData.user_age,
+          user_sex:userData.user_sex,
           user_jobtitle: userData.user_jobtitle,
           user_address: userData.user_address,
           user_zip: userData.user_zip,
@@ -97,6 +99,7 @@ export default function EditStaff() {
         user_name: formData.user_name,
         user_email: formData.user_email,
         user_age: formData.user_age,
+        user_sex:formData.user_sex,
         user_jobtitle: formData.user_jobtitle,
         user_address:formData.user_address,
         user_zip:formData.user_zip,
@@ -161,6 +164,25 @@ export default function EditStaff() {
           </label>
           {/* Add other input fields similarly */}
           {/* ... */}
+          <label style={styles.label} htmlFor="name">
+            Sex:
+            <select
+            id="sex"
+            name="user_sex"
+            value={formData.user_sex}
+            onChange={handleChange}
+             style={styles.input}
+            >
+        <option disabled selected value="disablevalue">
+        ---Choose your Sex ----
+        </option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+        
+        </select>
+
+          </label>
           <label style={styles.label} htmlFor="name">
            Birthday:
             <input
@@ -230,6 +252,63 @@ export default function EditStaff() {
         <option value="Hybrid">Hybrid</option>
         </select>
 
+          </label>
+          <label style={styles.label} htmlFor="name">
+           City:
+            <input
+              type="text"
+              id="city"
+              name="user_city"
+              value={formData.user_city}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label} htmlFor="name">
+           PinCode:
+            <input
+              type="text"
+              id="zip"
+              name="user_zip"
+              placeholder='Enter Number Only'
+              value={formData.user_zip}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label} htmlFor="name">
+           District:
+            <input
+              type="text"
+              id="district"
+              name="user_district"
+              value={formData.user_district}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+          <label style={styles.label} htmlFor="name">
+           State:
+            <input
+              type="text"
+              id="state"
+              name="user_state"
+              value={formData.user_state}
+              onChange={handleChange}
+              style={styles.input}
+            />
+          </label>
+
+          <label style={styles.label} htmlFor="name">
+            Phone Number:
+            <input
+              type="number"
+              id="phone"
+              name="user_phone"
+              value={formData.user_phone}
+              onChange={handleChange}
+              style={styles.input}
+            />
           </label>
           <label style={styles.label} htmlFor="name">
             Start Date:

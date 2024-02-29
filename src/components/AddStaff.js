@@ -7,6 +7,7 @@ export default function AddStaff() {
     user_name: '',
     user_email: '',
     user_age: '',
+    user_sex:'',
     user_jobtitle: '',
     user_address:'',
     user_zip:'',
@@ -76,7 +77,7 @@ export default function AddStaff() {
     let currentUserFormData={
         user_name: formData.user_name,
         user_email: formData.user_email,
-    
+        user_sex:formData.user_sex,
         user_age: formData.user_age,
     
         user_jobtitle: formData.user_jobtitle,
@@ -120,7 +121,7 @@ export default function AddStaff() {
             user_age: '',
             
             user_jobtitle: '',
-            
+            user_sex:'',
             user_address:'',
             user_zip:'',
             user_city:'',
@@ -173,6 +174,25 @@ export default function AddStaff() {
               onChange={handleChange}
               style={styles.input}
             />
+          </label>
+          <label style={styles.label} htmlFor="name">
+            Sex:
+            <select
+            id="sex"
+            name="user_sex"
+            value={formData.user_sex}
+            onChange={handleChange}
+             style={styles.input}
+            >
+        <option disabled selected value="disablevalue">
+        ---Choose your Sex ----
+        </option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+        
+        </select>
+
           </label>
           <label style={styles.label} htmlFor="name">
            City:
@@ -312,7 +332,7 @@ export default function AddStaff() {
             onChange={handleChange}
              style={styles.input}
             >
-        <option disabled value="disablevalue">
+        <option disabled selcted value="disablevalue">
         ---Select Your Working Type----
         </option>
         <option value="FullTime">Full Time</option>
