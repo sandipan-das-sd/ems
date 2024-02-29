@@ -58,7 +58,7 @@ export default function AddStaff() {
           alert(error.response.data.error); // Display the error message to the user
       } else {
           console.error('Error adding staff:', error);
-          // Handle other types of errors (e.g., network issues, server errors)
+         
       }
   });
 
