@@ -7,13 +7,28 @@ import { Container, Button, Table } from 'react-bootstrap';
 export default function StaffList() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
-
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         axios.get('http://localhost:3001/staffList')
-            .then(result => setUsers(result.data)) 
-            .catch(err => setError(err.message)); // Handle errors
+            .then((result) => {
+                setUsers(result.data);
+                setLoading(false);
+            })
+            .catch((err) => setError(err.message)); // Handle errors
     }, []);
-
+    
+   const  handelDelete=(id)=>{
+    axios.delete('http://localhost:3001/deleteStaff/'+id)
+    .then(res=>{console.log(res)
+        alert("Record Deleted successfully");
+        window.location.reload()
+        
+    })
+    
+    .catch(error=>console.log(error))
+    
+    
+   }
     const navigate = useNavigate();
 
     return (
@@ -22,9 +37,15 @@ export default function StaffList() {
                 <Link to="/staffAddForm" className='btn btn-success'>Add Staff</Link>
             </div>
             {error && <div className="alert alert-danger">{error}</div>} {/* Display error message */}
+            {loading ? (
+                <p>Loading...</p>
+            ) : users.length === 0 ? (
+                <p>No data available. Add data to see the staff list.</p>
+            ) : (
             <Table striped bordered hover>
                 <thead>
                     <tr>
+                        <th>Sl No.</th>
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Age</th>
@@ -48,6 +69,7 @@ export default function StaffList() {
                 <tbody>
                     {users.map((user, index) => (
                         <tr key={index}>
+                        <td>{ index+1}</td>
                             <td>{user.user_name}</td>
                             <td>{user.user_email}</td>
                             <td>{user.user_age}</td>
@@ -69,14 +91,17 @@ export default function StaffList() {
                             <td>{user.user_emergency_contact_name}</td>
                             <td>
                                 <Button onClick={() => navigate(`/editStaff/${user._id}`)} variant='success'>Update</Button>
-                                <Link to={`/delete`}>
-                                    <Button variant='primary'>Delete</Button>
-                                </Link>
+                                
+                                    <Button variant='primary' onClick={(e)=>{
+                                        handelDelete(user._id);
+                                    }}>Delete</Button>
+                                
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
+            )}
         </Container>
     );
-}
+   }

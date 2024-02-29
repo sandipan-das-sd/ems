@@ -25,6 +25,7 @@ export default function AddStaff() {
   //handelChange is a function where user can type the value and we can get the value of all the input fields 
  //on chnage and event are adding for this  here to type
  let [user,setUser]=useState(
+ 
     [
 
     ]
