@@ -47,11 +47,20 @@ export default function AddStaff() {
      await axios.post('http://localhost:3001/addStaff', formData)
      .then(res => {
          console.log(res);
+
          // Navigate to the staff list page after successful addition
          alert("Data Succesfully added")
          navigate('/staffList');
      })
-     .catch(err => console.log(err));
+     .catch(error => {
+      // Handle error response
+      if (error.response.status === 400) {
+          alert(error.response.data.error); // Display the error message to the user
+      } else {
+          console.error('Error adding staff:', error);
+          // Handle other types of errors (e.g., network issues, server errors)
+      }
+  });
 
     // Handle form submission
     let currentUserFormData={

@@ -8,6 +8,14 @@ export default function StaffList() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    // Function to format ISO date to MM/DD/YYYY format
+const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+};
     useEffect(() => {
         axios.get('http://localhost:3001/staffList')
             .then((result) => {
@@ -30,6 +38,14 @@ export default function StaffList() {
     
    }
     const navigate = useNavigate();
+    // const handleAddStaff = () => {
+    //     navigate('/staffAddForm');
+    // }
+
+    // const handleAddStaffError = (error) => {
+    //     alert(error);
+    //     navigate('/staffList');
+    // }
 
     return (
         <Container className='mt-5'>
@@ -80,13 +96,13 @@ export default function StaffList() {
                             <td>{user.user_state}</td>
                             <td>{user.user_district}</td>
                             <td>{user.user_phone}</td>
-                            <td>{user.user_birthday}</td>
+                            <td>{formatDate(user.user_birthday)}</td>
                             <td>
                                 <img src={user.user_docx} alt="UserPhoto" />
                             </td>
                             <td>{user.user_department}</td>
                             <td>{user.user_workingtype}</td>
-                            <td>{user.user_doj}</td>
+                            <td>{formatDate(user.user_doj)}</td>
                             <td>{user.user_emergencyphneno}</td>
                             <td>{user.user_emergency_contact_name}</td>
                             <td>
