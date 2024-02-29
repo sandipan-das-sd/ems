@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState ,useRef,useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom'
 export default function AddStaff() {
+  const [duplicateFields, setDuplicateFields] = useState([]);
+  //if dublicate then focus on that input
+    const phoneRef = useRef(null);
+    const emailRef = useRef(null);
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
@@ -63,6 +67,8 @@ export default function AddStaff() {
       // Handle error response
       if (error.response.status === 400) {
           alert(error.response.data.error); // Display the error message to the user
+          alert("Error adding staffs for dublicate value.Try again with a updated Data");
+
       } else {
           console.error('Error adding staff:', error);
          
@@ -137,7 +143,27 @@ export default function AddStaff() {
     )
   
   };
-
+  const handleDuplicatedFields = (duplicatedFields) => {
+    setDuplicateFields(duplicatedFields);
+};
+useEffect(() => {
+  // Focus on the duplicated fields
+  if (duplicateFields.length > 0) {
+      duplicateFields.forEach((field) => {
+          switch (field) {
+              case 'phone':
+                  phoneRef.current.focus();
+                  break;
+              case 'email':
+                  emailRef.current.focus();
+                  break;
+              // Focus on other duplicated fields
+              default:
+                  break;
+          }
+      });
+  }
+}, [duplicateFields]);
   return (
     <div style={{
         backgroundColor:'green',
@@ -221,6 +247,7 @@ export default function AddStaff() {
             <input
               type="number"
               id="phone"
+              ref={phoneRef}
               name="user_phone"
               value={formData.user_phone}
               onChange={handleChange}
@@ -233,6 +260,7 @@ export default function AddStaff() {
               type="email"
               id="email"
               name="user_email"
+              ref={emailRef}
               value={formData.user_email}
               onChange={handleChange}
               style={styles.input}
