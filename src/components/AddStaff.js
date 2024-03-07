@@ -386,6 +386,7 @@ export default function AddStaff() {
         <button 
         type="submit" 
         style={styles.button}
+        
         onClick={handleSubmit}
         >Add Staff </button>
       </form>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Container, Button, Table } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 
 
 export default function StaffList() {
@@ -25,18 +25,23 @@ const formatDate = (isoDate) => {
             .catch((err) => setError(err.message)); // Handle errors
     }, []);
     
-   const  handelDelete=(id)=>{
-    axios.delete('http://localhost:3001/deleteStaff/'+id)
-    .then(res=>{console.log(res)
-        alert("Record Deleted successfully");
-        window.location.reload()
+    const handelDelete = (id) => {
+        // Use a custom confirmation dialog
+        const confirmed = window.confirm("Are you sure you want to delete?");
         
-    })
+        // If confirmed, proceed with deletion
+        if (confirmed) {
+            axios.delete('http://localhost:3001/deleteStaff/' + id)
+                .then(res => {
+                    console.log(res);
+                    alert("Record Deleted successfully");
+                    window.location.reload();
+                })
+                .catch(error => console.log(error));
+        }
+    }
     
-    .catch(error=>console.log(error))
     
-    
-   }
     const navigate = useNavigate();
     // const handleAddStaff = () => {
     //     navigate('/staffAddForm');
@@ -48,8 +53,9 @@ const formatDate = (isoDate) => {
     // }
 
     return (
-        <div className='container-fluid'>
-        <Container className='mt-5'>
+        <div className="container-fluid whole">
+        <Container className='mt-10'>
+        
             <div className='text-end'>
                 <Link to="/staffAddForm" className='btn btn-success'>Add Staff</Link>
             </div>
@@ -59,7 +65,7 @@ const formatDate = (isoDate) => {
             ) : users.length === 0 ? (
                 <p>No data available. Add data to see the staff list.</p>
             ) : (
-            <Table striped bordered hover>
+                <div className="row">
                 <thead>
                     <tr>
                         <th>Sl No.</th>
@@ -119,7 +125,7 @@ const formatDate = (isoDate) => {
                         </tr>
                     ))}
                 </tbody>
-            </Table>
+            </div>
             )}
         </Container>
         </div>
