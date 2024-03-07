@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import styles from "./Login.module.css";
 import InputControl from "../inputControl/inputControl";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,10 +8,12 @@ import {
   provider,
   GithubAuthProvider,
   FacebookAuthProvider,
-  signInWithPhoneNumber
+  
 } from "../../firebase";
 
-const Login = () => {
+
+// import axios from "axios";
+const Login = ({ user }) => {
   const [values, setValues] = useState({
     email: "",
     pass: "",
@@ -19,9 +21,10 @@ const Login = () => {
 
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
-
   const navigate = useNavigate();
+ 
 
+ 
 
   // -------------------All Function starts here---------------------------------
 
@@ -144,12 +147,30 @@ const Login = () => {
       setSubmitButtonDisabled(false);
       // Redirect to the home page immediately after successful login
       navigate("/");
+      // await verifyToken();
     } catch (err) {
       setSubmitButtonDisabled(false);
       setErrorMsg(err.message);
       console.error("Error-", err.message);
     }
   };
+   // Function to validate JWT token
+//    const verifyToken = async () => {
+//     try {
+//         const token = localStorage.getItem("token");
+//         const response = await axios.post('/verify-token', { token });
+//         if (response.data.valid) {
+//             console.log('Token is valid');
+//             // Proceed with authenticated actions
+//         } else {
+//             console.log('Token is invalid');
+//             // Handle invalid token scenario
+//         }
+//     } catch (error) {
+//         console.error('Error validating token:', error);
+//         // Handle token validation errors
+//     }
+// };
   //************************End of this function ***********************************************/
   return (
     //-------Login Heading----------

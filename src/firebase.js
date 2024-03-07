@@ -1,24 +1,23 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider, signInWithPhoneNumber as signInWithPhoneNumberBase } from 'firebase/auth';
-import { getAnalytics } from "firebase/analytics";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC3Ycd75NMXnsKXgQ2izonFWNXJrVH0t1g",
-  authDomain: "sandipan-react-1.firebaseapp.com",
-  databaseURL: "https://sandipan-react-1-default-rtdb.firebaseio.com",
-  projectId: "sandipan-react-1",
-  storageBucket: "sandipan-react-1.appspot.com",
-  messagingSenderId: "703833726025",
-  appId: "1:703833726025:web:285e36617168319212b398",
-  measurementId: "G-ZNY82C1PCV"
+  apiKey: "AIzaSyBNZD9-WbW1_5Z5rt18cdxNQZ68Cc6GCuo",
+  authDomain: "ems-3240a.firebaseapp.com",
+  projectId: "ems-3240a",
+  storageBucket: "ems-3240a.appspot.com",
+  messagingSenderId: "316843241768",
+  appId: "1:316843241768:web:9c8a6d0ba1426547f5a01d",
+  measurementId: "G-S904LF5QJ3"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-const analytics = getAnalytics(app);
+
 
 const signInWithPhoneNumber = async (phoneNumber) => {
   try {
