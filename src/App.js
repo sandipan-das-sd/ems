@@ -10,8 +10,11 @@ import AddStaff from './components/AddStaff';
 import ViewStaff from './components/ViewStaff';
 import EditStaff from './components/EditStaff';
 
+
 import { auth } from './firebase';
 import StaffList from './components/StaffList';
+import AddDepartment from './components/AddDepartment';
+import ManageDepartment from './components/ManageDepartment';
 
 
 
@@ -64,6 +67,10 @@ function App() {
           <Route path="/staffAddForm" element={<AddStaff />} />
           <Route path="/viewStaff/:id" element={<ViewStaff />} />
           <Route path="/editStaff/:id" element={<EditStaff />} />
+          <Route path='/addDepartment' element={<AddDepartment/>}/>
+          {/* Department lists */}
+          <Route path='/manageDepartment'element={<ManageDepartment/>}/> 
+
 
         </Routes>
       </Router>

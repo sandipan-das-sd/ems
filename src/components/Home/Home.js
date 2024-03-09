@@ -172,17 +172,17 @@ export default function Home() {
 
                   <ul className="dropdown-menu dropdown-menu-dark">
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <NavLink className="dropdown-item" to="/addDepartment">
                         Add Department
-                      </a>
+                      </NavLink>
                     </li>
                     <li>
                       <hr className="dropdown-divider" />
                     </li>
                     <li>
-                      <a className="dropdown-item" href="/">
+                      <NavLink className="dropdown-item" to="/manageDepartment">
                         Manage Department
-                      </a>
+                      </NavLink>
                     </li>
                   </ul>
                 </li>

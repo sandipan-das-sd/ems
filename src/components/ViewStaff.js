@@ -43,8 +43,8 @@ export default function ViewStaff() {
                 {user.user_docx && <img src={user.user_docx} style={{ width: '200px', height: '200px', borderRadius: '50%', objectFit: 'cover', marginBottom: '20px' }} alt="UserImage" />}
                 {!user.user_docx && <div>User Image Not Available</div>}
                 <div style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '10px', textAlign: 'center' }}>Details of Staffs</div>
-                <div>
-                    <div><strong>User Name:</strong> {user.user_name}</div>
+                <div >
+                    <div ><strong>User Name:</strong> {user.user_name}</div>
                     <div><strong>User Email:</strong> {user.user_email}</div>
                     <div><strong>User Age:</strong> {user.user_age}</div>
                     <div><strong>User Sex:</strong> {user.user_sex}</div>
