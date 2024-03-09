@@ -41,7 +41,7 @@ export default function ViewStaff() {
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ width: '400px', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
                 {user.user_docx && <img src={user.user_docx} style={{ width: '200px', height: '200px', borderRadius: '50%', objectFit: 'cover', marginBottom: '20px' }} alt="UserImage" />}
-                {!user.user_docx && <div>User Image Not Available</div>}
+                {!user.user_docx && <div>User Image Not Available in the server.Please try again after sometime.</div>}
                 <div style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '10px', textAlign: 'center' }}>Details of Staffs</div>
                 <div >
                     <div ><strong>User Name:</strong> {user.user_name}</div>

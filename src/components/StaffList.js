@@ -48,7 +48,7 @@ export default function StaffList() {
         <div className="container-fluid">
             <Container className='mt-10'>
                 <div className='text-end mb-3'>
-                    <Link to="/staffAddForm" className='btn btn-success'>Add Staff</Link>
+                    <Link to="/addStaff" className='btn btn-success'>Add Staff</Link>
                 </div>
                 {error && <div className="alert alert-danger">{error}</div>}
                 {loading ? (

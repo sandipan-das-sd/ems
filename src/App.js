@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 
 import { BrowserRouter as Router, Routes, Route,  Navigate, } from 'react-router-dom';
-import Home from './components/Home/Home';
+
 import Signup from './components/Signup/Signup';
 import Login from '../src/components/Login/Login';
 import OTPVerificationForm from './components/Login/OTPVerificationForm';
 import Error from './components/Login/Error';
-import AddStaff from './components/AddStaff';
+import AddStaff from "./components/AddStaff"
 import ViewStaff from './components/ViewStaff';
 import EditStaff from './components/EditStaff';
+import Dashboard from "./components/Dashboard"
 
 
 import { auth } from './firebase';
 import StaffList from './components/StaffList';
 import AddDepartment from './components/AddDepartment';
 import ManageDepartment from './components/ManageDepartment';
+import Sidebar from './components/Sidebar';
+
 
 
 
@@ -57,20 +60,20 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isAuthenticated ? <Home name={userName} /> : <Navigate to="/login" />}
+            element={isAuthenticated ? <Sidebar name={userName} /> : <Navigate to="/login" />}
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/error" element={<Error />} />
           <Route path="/otp_verify" element={<OTPVerificationForm />} />
           <Route path="/staffList" element={<StaffList />} />
-          <Route path="/staffAddForm" element={<AddStaff />} />
+          <Route path="/addStaff" element={<AddStaff />} />
           <Route path="/viewStaff/:id" element={<ViewStaff />} />
           <Route path="/editStaff/:id" element={<EditStaff />} />
           <Route path='/addDepartment' element={<AddDepartment/>}/>
           {/* Department lists */}
           <Route path='/manageDepartment'element={<ManageDepartment/>}/> 
-
+          <Route path='/'element={<Dashboard/>}/> 
 
         </Routes>
       </Router>

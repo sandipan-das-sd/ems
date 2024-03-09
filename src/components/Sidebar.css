@@ -6,6 +6,7 @@
 .offcanvas.show:not(.hiding), .offcanvas.showing {
     transform: none;
     width: auto;
+    
 }
 .extra{
     position: absolute;
