@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -49,12 +50,11 @@ export default function NewDepartment() {
     });
   };
 
-
   return (
     <>
       {showSuccessAlert && (
-        <div className="alert alert-success d-flex align-items-center" role="alert" style={{ width: "1285px" }}>
-          <span className="me-20" role="img" aria-label="Success">✅</span>
+        <div className="alert alert-success d-flex align-items-center" role="alert" style={{ width: "1085px" }}>
+          <span className="me-10" role="img" aria-label="Success">✅</span>
           <div>
             Department added Successfully!!!
           </div>
@@ -68,96 +68,58 @@ export default function NewDepartment() {
         </div>
       )}
 
-      <div className="container my-2">
-        <h2>Add Department</h2>
+      <div className="container my-2" style={{ textAlign: "center" }}>
+        <h2 style={{ color: "#007bff", marginBottom: "20px", fontWeight: "bold" }}>Add Department</h2>
+        <hr style={{ borderTop: "2px solid #007bff" }} />
       </div>
 
-      <div className="container-fluid pt-3" style={{ padding: "100px" }}>
+      <div className="container-fluid pt-3" style={{ padding: "50px 100px", position: "relative" }}>
         <form onSubmit={handleSubmit}>
-          <div className="row d-flex justify-content-evenly">
-            <h5 style={{ fontSize: "20px" }} className="px-2">
-              Add Department
-            </h5>
-            <hr />
-            <div className="container">
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="mb-3">
-                    <b className="">Department Name</b>
-                    {/* <input
-                      type="text"
-                      name="deptName"
-                      id="deptname"
-                      value={formData.deptName}
-                      placeholder="Enter department name in Caps"
-                      onChange={handleChange}
-                      style={{
-                        border: "1px solid",
-                        width: "100%",
-                        height: "30px",
-                        
-                      }}
-                    /> */}
-                    <input
-                      type="text"
-                      name="deptName"
-                      id="deptname"
-                      value={formData.deptName}
-                      placeholder="Enter department name in Caps"
-                      onChange={handleChange}
-                      style={{
-                        border: "1px solid #ced4da",
-                        borderRadius: "5px",
-                        width: "100%",
-                        height: "30px",
-                        padding: "5px 10px",
-                        transition: "border-color 0.3s",
-                        outline: "none", // Remove outline on focus
-                      }}
-                      className="form-control"
-                      onMouseEnter={(e) => e.target.style.borderColor = "#80bdff"} // Change border color on hover
-                      onMouseLeave={(e) => e.target.style.borderColor = "#ced4da"} // Reset border color on mouse leave
-                      onFocus={(e) => e.target.style.borderColor = "#007bff"} // Change border color on focus
-                      onBlur={(e) => e.target.style.borderColor = "#ced4da"} // Reset border color on blur
-                    />
-
-                  </div>
+          <div className="row justify-content-center">
+            <div className="col-md-6">
+              <div className="mb-3">
+                <b className="text-primary" style={{ fontSize: "24px", marginBottom: "15px", display: "block" }}>Add Department</b>
+                <hr style={{ borderTop: "2px solid #007bff", width: "50px", margin: "0 auto 20px auto" }} />
+                <div className="mb-3">
+                  <label htmlFor="deptName" className="form-label">Department Name</label>
+                  <input
+                    type="text"
+                    name="deptName"
+                    id="deptname"
+                    value={formData.deptName}
+                    placeholder="Enter department name in Caps"
+                    onChange={handleChange}
+                    className="form-control"
+                    style={{
+                      border: "1px solid #ced4da",
+                      borderRadius: "5px",
+                      transition: "border-color 0.3s",
+                    }}
+                  />
                 </div>
-                <div className="col-md-6">
-                  <div className="mb-3">
-                    <b className="">Department ID</b>
-                    <input
-                      type="text"
-                      name="deptID"
-                      id="deptid"
-                      value={formData.deptID}
-                      onChange={handleChange}
-                      style={{
-                        border: "1px solid #ced4da",
-                        borderRadius: "5px",
-                        width: "100%",
-                        height: "30px",
-                        padding: "5px 10px",
-                        transition: "border-color 0.3s",
-                        outline: "none", // Remove outline on focus
-                      }}
-                      className="form-control"
-                      onMouseEnter={(e) => e.target.style.borderColor = "#80bdff"} // Change border color on hover
-                      onMouseLeave={(e) => e.target.style.borderColor = "#ced4da"} // Reset border color on mouse leave
-                      onFocus={(e) => e.target.style.borderColor = "#007bff"} // Change border color on focus
-                      onBlur={(e) => e.target.style.borderColor = "#ced4da"} // Reset border color on blur
-                    />
-                  </div>
+                <div className="mb-3">
+                  <label htmlFor="deptID" className="form-label">Department ID</label>
+                  <input
+                    type="text"
+                    name="deptID"
+                    id="deptid"
+                    value={formData.deptID}
+                    onChange={handleChange}
+                    className="form-control"
+                    style={{
+                      border: "1px solid #ced4da",
+                      borderRadius: "5px",
+                      transition: "border-color 0.3s",
+                    }}
+                  />
                 </div>
               </div>
-            </div>
-            <div className="container">
-              <button type="submit" className="btn btn-success float-end">
-                Submit
-              </button>
-              <button type="button" className="btn btn-success float-right" onClick={() => navigate('/manageDepartment')}>
-                Manage Department
-              </button>
+              <div className="mb-3 text-center">
+                <button type="submit" className="btn btn-primary btn-lg">Submit</button>
+                <button type="button" className="btn btn-success btn-lg ms-3" onClick={() => navigate('/manageDepartment')}>
+                  Manage Department
+                </button>
+              </div>
             </div>
           </div>
         </form>
