@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
- // Make sure to import Footer if needed
+
 import NewDepartment from './NewDepartment';
 
 export default function AddDepartment() {

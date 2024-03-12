@@ -85,14 +85,14 @@ export default function EditStaff() {
   const handleSubmit = async (e) => {
     e.preventDefault();
      // API call to update staff member
-     await axios.put(`http://localhost:3001/updateStaffs/${id}`, formData)
-     .then(res => {
-         console.log(res);
-         // Navigate to the staff list page after successful addition
-         alert("Data Successfully Updated")
-         navigate('/staffList');
-     })
-     .catch(err => console.log(err));
+await axios.put(`http://localhost:3001/updateStaffs/${id}`, formData)
+.then(res => {
+    console.log(res);
+    // Navigate to the staff list page after successful addition
+    alert("Data Successfully Updated")
+    navigate('/staffList');
+})
+.catch(err => console.log(err));
 
     // Handle form submission
     let currentUserFormData={
